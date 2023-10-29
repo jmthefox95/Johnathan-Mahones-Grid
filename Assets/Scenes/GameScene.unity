@@ -159,7 +159,7 @@ MonoBehaviour:
   timeCounterText: {fileID: 644478584}
   levelCompleteCounterText: {fileID: 1717179778}
   playerHealth: 3
-  moveCounter: 10
+  moveCounter: 20
   levelsComplete: 0
 --- !u!4 &67102917
 Transform:

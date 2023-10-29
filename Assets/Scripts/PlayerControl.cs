@@ -17,7 +17,7 @@ public class PlayerControl : MonoBehaviour
     public TextMeshProUGUI levelCompleteCounterText;
 
     public float playerHealth = 3;
-    public float moveCounter = 15;
+    public float moveCounter = 20;
     public float levelsComplete = 0;
    
     private int rIndex = 0;
