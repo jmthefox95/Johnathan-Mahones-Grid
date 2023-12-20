@@ -17,6 +17,7 @@ public class Tile : MonoBehaviour
     public bool isInaccessible;
     public bool isGoal;
     public bool isDeath;
+    internal bool isTrapMoving;
 
 
     //This is a method for adjusting the color of the tile, we call it in the GridGenerator to color the tile once we've 

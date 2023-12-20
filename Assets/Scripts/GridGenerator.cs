@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class GridGenerator : MonoBehaviour
 {
+    public PlayerControl player;
     // How big the gird is  (how many rows and columns)
     public int rows;
     public int columns;
     public Tile[,] tiles;
+    private Tile randomTrapTile;
+
+    public float duration = 3;
+    float timeElapsed;
 
     // Tile prefab were going to use to make the grid
     public GameObject tilePrefab;
@@ -37,6 +43,11 @@ public class GridGenerator : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        ConvertTileToTrap(GetRandomTile());
+    }
+
     private void MakeGrid()
     {
         //Nested for loops to create the rows and columns
@@ -62,22 +73,23 @@ public class GridGenerator : MonoBehaviour
         }
 
         // We run some for loops after making the Grid to set any specific tiles.
-        for (int i = 0; i < holeCount; i++)
+        for (int i = 0; i < holeCount; i++) // In this for loop, i < holeCount means there will be holes less than the set range
         {
             AddHoles();
         }
-        for (int i = 0; i < trapTileCount; i++)
+        for (int i = 0; i < trapTileCount; i++) // The amount of set traps will be less than the max amount.
         {
             AddTraps();
         }
-        for (int i = 0; i == goalTileCount; i++)
+        for (int i = 0; i == goalTileCount; i++) // There will be only one goal tile set.
         {
             AddGoal();
         }
-        for (int i = 0; i == deathTileCount; i++)
+        for (int i = 0; i == deathTileCount; i++) // The amount of traps set will be the max amount in the range.
         {
             AddDeath();
         }
+        // If I change the i value to a number in any of the for loops above instead of 0, the range will be ignored. 
     }
 
     //If we ever need the position for a tile, we can get it from one of these two functions.
@@ -113,6 +125,7 @@ public class GridGenerator : MonoBehaviour
         trapTiles.Add(t);
         t.AdjustColor(Color.red);
         t.isTrap = true;
+            
 
     }
 
@@ -170,7 +183,60 @@ public class GridGenerator : MonoBehaviour
         deathTile.Add(t);
         t.AdjustColor(Color.yellow);
         t.isDeath = true;
+
+        
+    }
+
+    
+
+    public void ConvertTileToTrap(Tile t)
+    {
+        t.AdjustColor((Color.red));
+        t.isTrap = true;
+        trapTiles.Add(t);
+        randomTrapTile = t;
+    }
+
+    public void ResetTile(Tile t)
+    {
+        t.AdjustColor((Color.white));
+        t.isTrap = false;
+        if (trapTiles.Contains(t))
+        {
+            trapTiles.Remove(t);
+        }
     }
 
 
+    public void TrapConvertTimer()
+    {
+        if (timeElapsed > 0)
+        {
+            ConvertTileToTrap(GetRandomTile());
+
+        }
+        else if (timeElapsed <= 0)
+        {
+            ResetTile(GetRandomTile());
+            
+        }
+    }
+
+    private void Update()
+    {
+
+        if (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+        }
+        else
+        {
+            ResetTile(randomTrapTile);
+            ConvertTileToTrap(GetRandomTile());
+            timeElapsed = 0;
+            randomTrapTile.isTrap = true;
+            player.ProcessTileEvents();
+        }
+
+    }
 }

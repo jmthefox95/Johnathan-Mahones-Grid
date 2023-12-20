@@ -689,8 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51beff1e6a0756445bd2ffd98c747b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 67102916}
   rows: 7
   columns: 7
+  duration: 1.75
   tilePrefab: {fileID: 7633368515072236349, guid: 0e0e804884b3ab54a9e7ad2b3d6b617a, type: 3}
   originPos: {x: -3, y: -3, z: 0}
   holeCount: 5
@@ -1340,8 +1342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 429}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 98.45, y: 540.1}
+  m_SizeDelta: {x: 378.89, y: 27.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717179778
 MonoBehaviour:

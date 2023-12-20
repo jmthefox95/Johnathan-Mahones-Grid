@@ -158,7 +158,10 @@ public class PlayerControl : MonoBehaviour
             playerHealth = playerHealth - 1;
 
             //This step is also necessary to make sure out place on the grid gets properly updated
-            SetTargetTile(lastTile);
+            if (lastTile != null)
+            {
+                SetTargetTile(lastTile);
+            }
         }
         else
         {
@@ -167,7 +170,7 @@ public class PlayerControl : MonoBehaviour
 
         if (currentTile.isGoal)
         {
-            levelsComplete = levelsComplete + 1;
+            levelsComplete++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
@@ -195,7 +198,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (currentTile.isGoal)
         {
-            levelsComplete = levelsComplete + 1;
+            levelsComplete++;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
